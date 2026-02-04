@@ -1,0 +1,4 @@
+{
+  "vendors": ["microsoft", "apache"],
+  "products": ["log4j", "chrome"]
+}

@@ -1,0 +1,56 @@
+name: Update Vulnerability Radar Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *" # every 6 hours
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run ETL
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python etl.py
+
+      - name: Commit updated data (demo branch)
+        run: |
+          set -e
+          if [ -z "$(git status --porcelain data/radar_data.json data/radar_report.md)" ]; then
+            echo "No changes to radar outputs"
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Keep main clean for forks: publish scraped data to the demo branch.
+          # The demo branch is treated as an always-fresh snapshot of the workflow SHA + latest data.
+          # Because we reset demo to $GITHUB_SHA each run, pushing requires force.
+          git checkout -B demo "$GITHUB_SHA"
+
+          git add data/radar_data.json data/radar_report.md
+          git commit -m "Update radar outputs"
+          git push --force origin demo

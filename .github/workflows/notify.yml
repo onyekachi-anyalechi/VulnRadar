@@ -1,0 +1,43 @@
+name: VulnRadar Notifications
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - demo
+    paths:
+      - data/radar_data.json
+  schedule:
+    - cron: "15 */6 * * *" # run after the ETL job
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: demo
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Create GitHub Issue alerts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python notify.py --in data/radar_data.json --max 25
