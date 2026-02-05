@@ -56,14 +56,20 @@ jobs:
           git config --global user.name "VulnRadar Bot"
           git config --global user.email "vulnradar[bot]@users.noreply.github.com"
           
-          # Only commit if state file changed
-          if [ -f "data/state.json" ] && git diff --quiet data/state.json 2>/dev/null; then
+          # Check if state file exists
+          if [ ! -f "data/state.json" ]; then
+            echo "No state file found"
+            exit 0
+          fi
+          
+          # Add state file (works for both new and modified files)
+          git add data/state.json
+          
+          # Check if there are staged changes
+          if git diff --cached --quiet data/state.json; then
             echo "No state changes to commit"
-          elif [ -f "data/state.json" ]; then
-            git add data/state.json
-            git commit -m "Update notification state [skip ci]" || echo "Nothing to commit"
+          else
+            git commit -m "Update notification state [skip ci]"
             git push
             echo "State file committed"
-          else
-            echo "No state file found"
           fi
