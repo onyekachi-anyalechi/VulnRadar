@@ -1,0 +1,39 @@
+[project]
+name = "vulnradar"
+version = "0.1.0"
+description = "Fork-and-go vulnerability intelligence tool"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+    "B008",  # function calls in argument defaults (common pattern)
+    "F401",  # unused imports (we have some for type hints)
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["etl", "notify"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = false
+warn_unused_ignores = true
+disallow_untyped_defs = false
+check_untyped_defs = false
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"

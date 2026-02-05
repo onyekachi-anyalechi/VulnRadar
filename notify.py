@@ -706,7 +706,7 @@ def main() -> int:
     
     # Discord notifications
     if args.discord_webhook:
-        print(f"Sending Discord notifications...")
+        print("Sending Discord notifications...")
         try:
             # Always send summary
             send_discord_summary(args.discord_webhook, items, repo)
@@ -731,7 +731,7 @@ def main() -> int:
     
     # Slack notifications
     if args.slack_webhook:
-        print(f"Sending Slack notifications...")
+        print("Sending Slack notifications...")
         try:
             # Always send summary
             send_slack_summary(args.slack_webhook, items, repo)
@@ -756,7 +756,7 @@ def main() -> int:
     
     # Microsoft Teams notifications
     if args.teams_webhook:
-        print(f"Sending Teams notifications...")
+        print("Sending Teams notifications...")
         try:
             # Always send summary
             send_teams_summary(args.teams_webhook, items, repo)
