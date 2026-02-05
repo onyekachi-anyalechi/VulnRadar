@@ -40,5 +40,6 @@ jobs:
       - name: Create GitHub Issue alerts
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          python notify.py --in data/radar_data.json --max 25
+          python notify.py --in data/radar_data.json --max 25 --discord-max 10

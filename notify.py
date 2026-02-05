@@ -89,8 +89,7 @@ def _issue_body(item: Dict[str, Any]) -> str:
     patch = bool(item.get("in_patchthis"))
     watch = bool(item.get("watchlist_hit"))
     is_critical = bool(item.get("is_critical"))
-    is_warning = bool(item.get("is_warning"))
-    priority = "CRITICAL" if is_critical else ("WARNING" if is_warning else "ALERT")
+    priority = "CRITICAL" if is_critical else "ALERT"
     kev_due = ""
     kev_obj = item.get("kev")
     if isinstance(kev_obj, dict):
@@ -123,19 +122,141 @@ def _issue_body(item: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def send_discord_alert(webhook_url: str, item: Dict[str, Any]) -> None:
+    """Send a formatted Discord embed for a CVE finding."""
+    cve_id = str(item.get("cve_id") or "")
+    desc = str(item.get("description") or "")[:500]
+    epss = item.get("probability_score")
+    cvss = item.get("cvss_score")
+    kev = bool(item.get("active_threat"))
+    patch = bool(item.get("in_patchthis"))
+    is_critical = bool(item.get("is_critical"))
+    
+    # Color: red for critical, orange for KEV, blue for others
+    if is_critical:
+        color = 0xFF0000  # Red
+        priority = "🚨 CRITICAL"
+    elif kev:
+        color = 0xFFA500  # Orange
+        priority = "⚠️ KEV"
+    else:
+        color = 0x3498DB  # Blue
+        priority = "ℹ️ ALERT"
+    
+    # Format scores
+    try:
+        epss_str = f"{float(epss):.1%}" if epss is not None else "N/A"
+    except Exception:
+        epss_str = "N/A"
+    try:
+        cvss_str = f"{float(cvss):.1f}" if cvss is not None else "N/A"
+    except Exception:
+        cvss_str = "N/A"
+    
+    # Get KEV due date if available
+    kev_due = ""
+    kev_obj = item.get("kev")
+    if isinstance(kev_obj, dict):
+        kev_due = str(kev_obj.get("dueDate") or "")
+    
+    fields = [
+        {"name": "EPSS", "value": epss_str, "inline": True},
+        {"name": "CVSS", "value": cvss_str, "inline": True},
+        {"name": "KEV", "value": "✅ Yes" if kev else "❌ No", "inline": True},
+        {"name": "PatchThis", "value": "✅ Yes" if patch else "❌ No", "inline": True},
+    ]
+    
+    if kev_due:
+        fields.append({"name": "KEV Due Date", "value": kev_due, "inline": True})
+    
+    payload = {
+        "embeds": [{
+            "title": f"{priority}: {cve_id}",
+            "description": desc if desc else "No description available.",
+            "color": color,
+            "fields": fields,
+            "url": f"https://www.cve.org/CVERecord?id={cve_id}",
+            "footer": {"text": "VulnRadar Alert"}
+        }]
+    }
+    
+    r = requests.post(webhook_url, json=payload, timeout=DEFAULT_TIMEOUT)
+    r.raise_for_status()
+
+
+def send_discord_summary(webhook_url: str, items: List[Dict[str, Any]], repo: str) -> None:
+    """Send a summary embed to Discord with counts and top findings."""
+    total = len(items)
+    critical_count = sum(1 for i in items if bool(i.get("is_critical")))
+    kev_count = sum(1 for i in items if bool(i.get("active_threat")))
+    patch_count = sum(1 for i in items if bool(i.get("in_patchthis")))
+    
+    # Get top 5 critical items
+    critical_items = [i for i in items if bool(i.get("is_critical"))]
+    critical_items.sort(key=lambda x: float(x.get("probability_score") or 0), reverse=True)
+    top_5 = critical_items[:5]
+    
+    top_list = ""
+    for i in top_5:
+        cve = i.get("cve_id", "")
+        epss = i.get("probability_score")
+        try:
+            epss_str = f"{float(epss):.1%}" if epss else "?"
+        except Exception:
+            epss_str = "?"
+        top_list += f"• [{cve}](https://www.cve.org/CVERecord?id={cve}) (EPSS: {epss_str})\n"
+    
+    if not top_list:
+        top_list = "No critical findings."
+    
+    color = 0xFF0000 if critical_count > 0 else 0x00FF00
+    
+    payload = {
+        "embeds": [{
+            "title": "📊 VulnRadar Daily Summary",
+            "color": color,
+            "fields": [
+                {"name": "Total CVEs", "value": str(total), "inline": True},
+                {"name": "🚨 Critical", "value": str(critical_count), "inline": True},
+                {"name": "⚠️ CISA KEV", "value": str(kev_count), "inline": True},
+                {"name": "🔥 PatchThis", "value": str(patch_count), "inline": True},
+                {"name": "Top Critical Findings", "value": top_list, "inline": False},
+            ],
+            "footer": {"text": f"Repo: {repo}"}
+        }]
+    }
+    
+    r = requests.post(webhook_url, json=payload, timeout=DEFAULT_TIMEOUT)
+    r.raise_for_status()
+
+
 def main() -> int:
-    p = argparse.ArgumentParser(description="VulnRadar notifications (GitHub Issues)")
+    p = argparse.ArgumentParser(description="VulnRadar notifications (GitHub Issues + Discord)")
     p.add_argument("--in", dest="inp", default="data/radar_data.json", help="Path to radar_data.json")
     p.add_argument("--max", dest="max_items", type=int, default=25, help="Max issues to create per run")
-    p.add_argument(
-        "--include-warnings",
-        action="store_true",
-        help="Also notify on PatchThis WARNING (shadow IT) items",
-    )
     p.add_argument(
         "--dry-run",
         action="store_true",
         help="Print would-notify CVEs without creating issues",
+    )
+    # Discord options
+    p.add_argument(
+        "--discord-webhook",
+        dest="discord_webhook",
+        default=os.environ.get("DISCORD_WEBHOOK_URL"),
+        help="Discord webhook URL (or set DISCORD_WEBHOOK_URL env var)",
+    )
+    p.add_argument(
+        "--discord-summary-only",
+        action="store_true",
+        help="Only send a summary to Discord, not individual alerts",
+    )
+    p.add_argument(
+        "--discord-max",
+        dest="discord_max",
+        type=int,
+        default=10,
+        help="Max individual Discord alerts per run (default: 10)",
     )
     args = p.parse_args()
 
@@ -148,14 +269,10 @@ def main() -> int:
 
     items = _load_items(Path(args.inp))
 
-    # Notify policy:
-    # - Always notify on is_critical
-    # - Optionally notify on is_warning
+    # Notify policy: notify on is_critical (PatchThis + Watchlist)
     candidates: List[Dict[str, Any]] = []
     for it in items:
         if bool(it.get("is_critical")):
-            candidates.append(it)
-        elif args.include_warnings and bool(it.get("is_warning")):
             candidates.append(it)
 
     # Sort to notify highest first
@@ -171,7 +288,6 @@ def main() -> int:
         return (
             1 if bool(it.get("is_critical")) else 0,
             1 if bool(it.get("active_threat")) else 0,
-            1 if bool(it.get("is_warning")) else 0,
             epss,
             cvss,
         )
@@ -191,14 +307,12 @@ def main() -> int:
         if cve_id in existing:
             continue
 
-        priority = "CRITICAL" if bool(it.get("is_critical")) else ("WARNING" if bool(it.get("is_warning")) else "ALERT")
+        priority = "CRITICAL" if bool(it.get("is_critical")) else "ALERT"
         title = f"[VulnRadar] {priority}: {cve_id}"
         body = _issue_body(it)
         labels = ["vulnradar", "alert"]
         if bool(it.get("is_critical")):
             labels.append("critical")
-        if bool(it.get("is_warning")):
-            labels.append("warning")
         if bool(it.get("active_threat")):
             labels.append("kev")
 
@@ -212,7 +326,31 @@ def main() -> int:
         existing.add(cve_id)
         created += 1
 
-    print(f"Done. Created {created} issues.")
+    print(f"Done. Created {created} GitHub issues.")
+    
+    # Discord notifications
+    if args.discord_webhook:
+        print(f"Sending Discord notifications...")
+        try:
+            # Always send summary
+            send_discord_summary(args.discord_webhook, items, repo)
+            print("Sent Discord summary.")
+            
+            # Send individual alerts unless summary-only
+            if not args.discord_summary_only:
+                discord_sent = 0
+                for it in candidates[:args.discord_max]:
+                    cve_id = str(it.get("cve_id") or "").strip().upper()
+                    if args.dry_run:
+                        print(f"DRY RUN: would send Discord alert for {cve_id}")
+                    else:
+                        send_discord_alert(args.discord_webhook, it)
+                        print(f"Sent Discord alert for {cve_id}")
+                    discord_sent += 1
+                print(f"Sent {discord_sent} Discord alerts.")
+        except Exception as e:
+            print(f"Discord notification failed: {e}")
+    
     return 0
 
 
