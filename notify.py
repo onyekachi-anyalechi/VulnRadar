@@ -375,6 +375,38 @@ def _create_issue(
     r.raise_for_status()
 
 
+def _extract_dynamic_labels(item: Dict[str, Any], max_labels: int = 3) -> List[str]:
+    """Extract vendor/product labels from matched_terms.
+
+    Returns sanitized, lowercase labels suitable for GitHub Issues.
+    Limited to max_labels to avoid label spam.
+
+    Args:
+        item: Radar item with matched_terms field
+        max_labels: Maximum number of dynamic labels to return
+
+    Returns:
+        List of label strings like ["vendor:apache", "product:log4j"]
+    """
+    matched = item.get("matched_terms") or []
+    if not isinstance(matched, list):
+        return []
+
+    labels: List[str] = []
+    for term in matched:
+        if not isinstance(term, str):
+            continue
+        # Clean up the label: lowercase, replace spaces with hyphens
+        clean = term.lower().strip().replace(" ", "-")
+        # GitHub labels can't be too long (50 chars max)
+        if len(clean) <= 50 and clean not in labels:
+            labels.append(clean)
+        if len(labels) >= max_labels:
+            break
+
+    return labels
+
+
 def _create_baseline_issue(
     session: requests.Session, repo: str, all_items: List[Dict[str, Any]], critical_items: List[Dict[str, Any]]
 ) -> None:
@@ -1635,8 +1667,12 @@ def main() -> int:
             if bool(it.get("active_threat")):
                 labels.append("kev")
 
+            # Add dynamic vendor/product labels from watchlist matches
+            dynamic_labels = _extract_dynamic_labels(it)
+            labels.extend(dynamic_labels)
+
             if args.dry_run:
-                print(f"DRY RUN: would create issue: {title}")
+                print(f"DRY RUN: would create issue: {title} (labels: {labels})")
                 created += 1
                 continue
 

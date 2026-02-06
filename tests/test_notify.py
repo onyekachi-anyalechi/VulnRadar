@@ -11,7 +11,7 @@ import pytest
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from notify import _issue_body, _load_items, _escalation_comment, Change
+from notify import _issue_body, _load_items, _escalation_comment, _extract_dynamic_labels, Change
 
 
 class TestLoadItems:
@@ -535,3 +535,47 @@ class TestEscalationComment:
         comment = _escalation_comment(change, sample_item)
 
         assert "VulnRadar" in comment
+
+
+class TestDynamicLabels:
+    """Tests for _extract_dynamic_labels() function."""
+
+    def test_extracts_vendor_labels(self):
+        """Extracts vendor labels from matched_terms."""
+        item = {"matched_terms": ["vendor:Apache", "product:Log4j"]}
+        labels = _extract_dynamic_labels(item)
+
+        assert "vendor:apache" in labels
+        assert "product:log4j" in labels
+
+    def test_handles_empty_matched_terms(self):
+        """Returns empty list when no matched_terms."""
+        item = {}
+        labels = _extract_dynamic_labels(item)
+        assert labels == []
+
+        item = {"matched_terms": []}
+        labels = _extract_dynamic_labels(item)
+        assert labels == []
+
+    def test_limits_max_labels(self):
+        """Respects max_labels limit."""
+        item = {"matched_terms": ["vendor:A", "vendor:B", "vendor:C", "vendor:D", "vendor:E"]}
+        labels = _extract_dynamic_labels(item, max_labels=2)
+
+        assert len(labels) == 2
+
+    def test_replaces_spaces_with_hyphens(self):
+        """Spaces in terms are converted to hyphens."""
+        item = {"matched_terms": ["vendor:Apache Software Foundation"]}
+        labels = _extract_dynamic_labels(item)
+
+        assert "vendor:apache-software-foundation" in labels
+
+    def test_deduplicates_labels(self):
+        """Duplicate labels are removed."""
+        item = {"matched_terms": ["vendor:Apache", "vendor:apache", "vendor:Apache"]}
+        labels = _extract_dynamic_labels(item)
+
+        assert len(labels) == 1
+        assert "vendor:apache" in labels
