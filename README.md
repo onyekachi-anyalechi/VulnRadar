@@ -11,6 +11,14 @@
   </p>
 </p>
 
+<!-- METRICS START -->
+| 📊 **CVEs Tracked** | 🚨 **Critical** | ⚠️ **In KEV** | 🔥 **Exploit Intel** |
+|:---:|:---:|:---:|:---:|
+| 2179 | 45 | 167 | 173 |
+
+_Last scanned: 2026-02-06 15:40 UTC_
+<!-- METRICS END -->
+
 ---
 
 VulnRadar is a **lightweight, GitHub-native vulnerability intelligence tool** that:
