@@ -108,95 +108,48 @@ echo -e "${YELLOW}📋 Step 3: Installing rich demo watchlist...${NC}"
 cat > watchlist.yaml << 'EOF'
 # VulnRadar Demo Watchlist
 # ========================
-# This watchlist is loaded with popular vendors and products
-# for demo purposes. It covers a wide range of common tech stacks.
+# A focused demo watchlist designed to show VulnRadar features
+# while keeping data size under GitHub's 100MB limit.
 #
-# For your own deployment, customize this to YOUR stack!
+# This watchlist targets ~500-2000 CVEs with high-signal entries
+# (critical, KEV, exploit intel) for compelling demos.
 
 # ============================================================================
-# VENDORS - Major software organizations
+# VENDORS - Focused selection for demos
 # ============================================================================
 vendors:
-  # Cloud & Infrastructure
-  - microsoft       # Windows, Azure, Office 365, Exchange
-  - google          # Chrome, Android, GCP, Workspace
-  - amazon          # AWS, various services
-  - oracle          # Java, MySQL, Cloud
+  # Security vendors (often in KEV with critical CVEs)
+  - fortinet            # FortiGate, FortiOS - frequent KEV entries
+  - paloaltonetworks    # PAN-OS firewalls - high-profile vulns
+  - ivanti              # VPN/MDM - recent high-profile CVEs
   
-  # Linux & Open Source
-  - linux           # Linux kernel
-  - apache          # httpd, Tomcat, Struts, Kafka, Log4j
-  - canonical       # Ubuntu
-  - redhat          # RHEL, OpenShift
-  
-  # Security & Networking
-  - cisco           # IOS, routers, switches
-  - fortinet        # FortiGate, FortiOS
-  - paloaltonetworks  # PAN-OS, firewalls
-  
-  # Virtualization & Containers
-  - vmware          # ESXi, vCenter, Horizon
-  - docker          # Docker Engine
-  
-  # Browsers & Productivity
-  - mozilla         # Firefox, Thunderbird
-  - atlassian       # Jira, Confluence
-  - gitlab          # GitLab
-  
-  # Databases
-  - postgresql      # PostgreSQL
-  - mongodb         # MongoDB
+  # Popular targets
+  - atlassian           # Confluence, Jira - enterprise targets
+  - gitlab              # GitLab - CI/CD
+  - hashicorp           # Terraform, Vault
 
 # ============================================================================
-# PRODUCTS - Specific high-value software
+# PRODUCTS - Specific high-signal products
 # ============================================================================
 products:
-  # Web & App Servers
-  - nginx
-  - tomcat
-  - apache http server
-  - iis
+  # Famous vulnerabilities
+  - log4j               # Log4Shell and variants
+  - openssl             # Heartbleed, etc.
   
-  # Languages & Runtimes
-  - java
-  - python
-  - node.js
-  - php
+  # Enterprise collaboration
+  - confluence          # Atlassian Confluence
+  - jira                # Atlassian Jira
   
-  # Databases
-  - mysql
-  - postgresql
-  - redis
-  - elasticsearch
-  - mongodb
-  
-  # Security-Critical Libraries
-  - log4j           # Log4Shell and variants
-  - openssl         # Heartbleed and others
-  - curl            # Common in everything
-  - openssh         # Widely deployed
-  
-  # Productivity & Collaboration
-  - exchange        # Microsoft Exchange
-  - sharepoint      # Microsoft SharePoint
-  - confluence      # Atlassian Confluence
-  - jira            # Atlassian Jira
+  # Security products (ironic targets)
+  - fortigate           # Fortinet firewall
+  - pan-os              # Palo Alto firewall
   
   # Infrastructure
-  - kubernetes      # K8s
-  - jenkins         # CI/CD
-  - grafana         # Monitoring
-  - prometheus      # Monitoring
-  
-  # Operating Systems
-  - windows         # Microsoft Windows
-  - linux kernel    # Linux kernel
-  - macos           # Apple macOS
-  - android         # Google Android
-  - ios             # Apple iOS
+  - jenkins             # CI/CD - many CVEs
+  - grafana             # Monitoring
 
 # ============================================================================
-# EXCLUSIONS - Filter out noise
+# EXCLUSIONS
 # ============================================================================
 exclude_vendors:
   - n/a
