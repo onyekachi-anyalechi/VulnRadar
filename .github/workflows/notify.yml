@@ -2,6 +2,11 @@ name: VulnRadar Notifications
 
 on:
   workflow_dispatch:
+    inputs:
+      demo:
+        description: 'Demo mode - inject fake CVE-2099-DEMO for presentations'
+        type: boolean
+        default: false
   workflow_run:
     workflows: ["Update Vulnerability Radar Data"]
     types: [completed]
@@ -50,7 +55,12 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           TEAMS_WEBHOOK_URL: ${{ secrets.TEAMS_WEBHOOK_URL }}
         run: |
-          python notify.py --in data/radar_data.json --max 25 --discord-max 10 --slack-max 10 --teams-max 10
+          DEMO_FLAG=""
+          if [ "${{ inputs.demo }}" == "true" ]; then
+            DEMO_FLAG="--demo"
+            echo "🎭 Demo mode enabled - injecting CVE-2099-DEMO"
+          fi
+          python notify.py --in data/radar_data.json --max 25 --discord-max 10 --slack-max 10 --teams-max 10 $DEMO_FLAG
 
       - name: Commit state file
         run: |

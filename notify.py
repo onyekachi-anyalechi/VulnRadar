@@ -222,6 +222,68 @@ def _now_iso() -> str:
     return dt.datetime.now(dt.timezone.utc).isoformat()
 
 
+def _generate_demo_cve() -> Dict[str, Any]:
+    """Generate a realistic fake CVE for demo purposes.
+
+    Returns a CVE that would trigger all alert pathways:
+    - Critical priority (in exploit intel + watchlist)
+    - In CISA KEV
+    - High EPSS score
+    - Matches common watchlist items (apache)
+
+    Uses CVE-2099-DEMO to be obviously fake.
+    """
+    import random
+
+    now = dt.datetime.now(dt.timezone.utc)
+    due_date = (now + dt.timedelta(days=14)).strftime("%Y-%m-%d")
+
+    return {
+        "cve_id": "CVE-2099-DEMO",
+        "description": (
+            "A critical remote code execution vulnerability in the Apache HTTP Server's "
+            "mod_vulnradar module allows unauthenticated attackers to execute arbitrary "
+            "code via crafted HTTP headers. This is a DEMO vulnerability for presentation "
+            "purposes at BSides Galway 2026."
+        ),
+        "cvss_score": 9.8,
+        "probability_score": round(0.85 + random.random() * 0.14, 4),  # 85-99%
+        "active_threat": True,
+        "in_patchthis": True,
+        "watchlist_hit": True,
+        "in_watchlist": True,
+        "is_critical": True,
+        "is_warning": False,
+        "priority_label": "CRITICAL (Active Exploit in Stack)",
+        "matched_terms": ["vendor:apache", "product:http_server"],
+        "kev": {
+            "cveID": "CVE-2099-DEMO",
+            "vendorProject": "Apache",
+            "product": "HTTP Server",
+            "dueDate": due_date,
+            "dateAdded": now.strftime("%Y-%m-%d"),
+            "shortDescription": "Apache HTTP Server Remote Code Execution",
+            "requiredAction": "Apply updates per vendor instructions.",
+            "knownRansomwareCampaignUse": "Known",
+        },
+        "containers": {
+            "cna": {
+                "affected": [
+                    {
+                        "vendor": "Apache",
+                        "product": "HTTP Server",
+                        "versions": [{"version": "2.4.0", "status": "affected"}],
+                    }
+                ]
+            }
+        },
+        "published": now.isoformat(),
+        "references": [
+            {"url": "https://example.com/cve-2099-demo"},
+        ],
+    }
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # GitHub API helpers
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1473,6 +1535,11 @@ def main() -> int:
         metavar="DAYS",
         help="Remove CVEs not seen in N days and exit (e.g., --prune-state 90)",
     )
+    p.add_argument(
+        "--demo",
+        action="store_true",
+        help="Demo mode: inject a fake critical CVE for conference presentations",
+    )
     args = p.parse_args()
 
     # Handle state management commands first
@@ -1507,6 +1574,18 @@ def main() -> int:
         raise SystemExit("GITHUB_TOKEN (or GH_TOKEN) is required")
 
     items = _load_items(Path(args.inp))
+
+    # Demo mode: inject a fake critical CVE
+    if args.demo:
+        demo_cve = _generate_demo_cve()
+        items.insert(0, demo_cve)  # Add at the beginning for visibility
+        print("\n🎭 DEMO MODE: Injected CVE-2099-DEMO (fake critical vulnerability)")
+        print("   This CVE will trigger:")
+        print("   - GitHub Issue creation")
+        print("   - Discord notification (if configured)")
+        print("   - Slack notification (if configured)")
+        print("   - Teams notification (if configured)")
+        print()
 
     # Initialize state manager (unless --no-state)
     state: Optional[StateManager] = None

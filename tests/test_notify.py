@@ -11,7 +11,7 @@ import pytest
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from notify import _issue_body, _load_items, _escalation_comment, _extract_dynamic_labels, Change
+from notify import _issue_body, _load_items, _escalation_comment, _extract_dynamic_labels, _generate_demo_cve, Change
 
 
 class TestLoadItems:
@@ -579,3 +579,34 @@ class TestDynamicLabels:
 
         assert len(labels) == 1
         assert "vendor:apache" in labels
+
+
+class TestDemoMode:
+    """Tests for demo mode functionality."""
+
+    def test_generate_demo_cve_structure(self):
+        """Demo CVE has all required fields."""
+        demo = _generate_demo_cve()
+
+        assert demo["cve_id"] == "CVE-2099-DEMO"
+        assert demo["is_critical"] is True
+        assert demo["active_threat"] is True
+        assert demo["in_patchthis"] is True
+        assert demo["watchlist_hit"] is True
+        assert demo["cvss_score"] == 9.8
+        assert 0.85 <= demo["probability_score"] <= 1.0
+
+    def test_generate_demo_cve_has_kev(self):
+        """Demo CVE includes KEV data."""
+        demo = _generate_demo_cve()
+
+        assert "kev" in demo
+        assert demo["kev"]["vendorProject"] == "Apache"
+        assert "dueDate" in demo["kev"]
+
+    def test_generate_demo_cve_matched_terms(self):
+        """Demo CVE has matched terms for dynamic labels."""
+        demo = _generate_demo_cve()
+
+        assert "vendor:apache" in demo["matched_terms"]
+        assert "product:http_server" in demo["matched_terms"]
