@@ -6,6 +6,7 @@
   <p align="center">
     <a href="https://github.com/RogoLabs/VulnRadar/blob/main/LICENSE"><img src="https://img.shields.io/github/license/RogoLabs/VulnRadar?style=flat-square" alt="License"></a>
     <img src="https://img.shields.io/badge/python-3.11+-blue?style=flat-square&logo=python&logoColor=white" alt="Python">
+    <a href="https://github.com/RogoLabs/VulnRadar/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/RogoLabs/VulnRadar/ci.yml?style=flat-square&label=CI" alt="CI Status"></a>
     <a href="https://github.com/RogoLabs/VulnRadar/actions/workflows/update.yml"><img src="https://img.shields.io/github/actions/workflow/status/RogoLabs/VulnRadar/update.yml?style=flat-square&label=ETL" alt="ETL Status"></a>
     <a href="https://github.com/RogoLabs/VulnRadar/actions/workflows/notify.yml"><img src="https://img.shields.io/github/actions/workflow/status/RogoLabs/VulnRadar/notify.yml?style=flat-square&label=Notify" alt="Notify Status"></a>
   </p>
@@ -27,8 +28,10 @@ VulnRadar is a **lightweight, GitHub-native vulnerability intelligence tool** th
 - 🎯 Filters CVEs against **your** tech stack via `watchlist.yaml`
 - 🔥 Enriches with [CISA KEV](https://www.cisa.gov/known-exploited-vulnerabilities-catalog), [EPSS](https://www.first.org/epss/), [NVD](https://nvd.nist.gov/), and [PatchThis](https://patchthis.app/) intelligence
 - 📊 Generates a beautiful Markdown report viewable directly in GitHub
-- 🚨 Creates GitHub Issues for critical findings
+- 🚨 Creates GitHub Issues for critical findings (with escalation comments!)
 - 🔔 Sends Discord/Slack/Teams notifications (optional)
+- 📋 Integrates with GitHub Projects v2 for Kanban workflows (optional)
+- 🎭 Includes demo mode for conference presentations
 
 **No API keys. No external services. Just fork and go.**
 
@@ -183,7 +186,58 @@ See [docs/teams.md](docs/teams.md) for setup instructions.
 
 ---
 
-## 🖥️ Local Development
+## � Advanced Features
+
+### State Management & Deduplication
+VulnRadar tracks which CVEs you've seen to avoid alert spam:
+- First run creates a baseline (no spam for existing CVEs)
+- Subsequent runs only alert on **new** critical CVEs
+- State stored in `data/state.json`
+
+### Issue Escalation
+When an existing CVE's status changes (e.g., added to CISA KEV), VulnRadar posts an **escalation comment** on the existing issue instead of creating a duplicate.
+
+### GitHub Projects Integration
+Automatically add new issues to a GitHub Projects v2 board:
+```yaml
+# In notify.yml workflow
+- run: python notify.py --project-url https://github.com/users/YOU/projects/1
+```
+
+### Multi-Watchlist Support
+For team collaboration, use `watchlist.d/*.yaml`:
+```
+watchlist.d/
+├── infra-team.yaml    # Infrastructure team's stack
+├── appsec-team.yaml   # AppSec team's focus areas
+└── soc-team.yaml      # SOC monitoring list
+```
+All files are merged at runtime.
+
+### Weekly Summary Issues
+Generate a weekly digest issue instead of individual alerts:
+```bash
+python notify.py --weekly-summary
+```
+
+### Demo Mode
+For conference presentations, inject a fake critical CVE:
+```bash
+python notify.py --demo
+```
+
+### Severity Labels
+Issues are automatically labeled by CVSS severity:
+- `severity:critical` (CVSS ≥ 9.0)
+- `severity:high` (CVSS ≥ 7.0)
+- `severity:medium` (CVSS ≥ 4.0)
+
+### GitHub Codespaces
+One-click development environment with `.devcontainer/devcontainer.json`.
+
+---
+
+## �🖥️ Local Development
 
 ```bash
 # Clone your fork
@@ -212,6 +266,29 @@ python etl.py --include-kev-outside-window
 
 # Skip NVD download (faster, less enrichment)
 python etl.py --skip-nvd
+
+# Use NVD cache for faster repeated runs
+python etl.py --nvd-cache .nvd_cache
+```
+
+### Notification Options (notify.py)
+
+```bash
+# Dry run - see what would be created
+python notify.py --dry-run
+
+# Demo mode - inject a fake CVE for presentations
+python notify.py --demo
+
+# Create weekly summary issue instead of individual alerts
+python notify.py --weekly-summary
+
+# Add issues to a GitHub Project board
+python notify.py --project-url https://github.com/users/YOU/projects/1
+
+# State management
+python notify.py --reset-state      # Start fresh
+python notify.py --prune-state 90   # Remove CVEs not seen in 90 days
 ```
 
 ### Discovery Commands
@@ -245,14 +322,22 @@ VulnRadar/
 ├── notify.py              # GitHub Issues / Discord / Slack / Teams notifications
 ├── watchlist.yaml         # Your configuration (edit this!)
 ├── watchlist.example.yaml # Extensive examples by category
+├── watchlist.d/           # Optional: multi-watchlist support (merged at runtime)
 ├── requirements.txt       # Python dependencies
 ├── data/
 │   ├── radar_report.md    # GitHub-viewable report (auto-generated)
-│   └── radar_data.json    # Machine-readable output (auto-generated)
+│   ├── radar_data.json    # Machine-readable output (auto-generated)
+│   └── state.json         # Alert tracking state (auto-generated)
+├── scripts/
+│   ├── reset_demo.sh      # Reset demo repo for presentations
+│   ├── update_readme_metrics.py  # Auto-update README stats
+│   └── validate_watchlist.py     # CI watchlist validation
 ├── docs/                  # Full documentation
+├── .devcontainer/         # GitHub Codespaces support
 └── .github/workflows/
     ├── update.yml         # Scheduled ETL (every 6 hours)
-    └── notify.yml         # Issue creation on new findings
+    ├── notify.yml         # Issue creation on new findings
+    └── ci.yml             # Linting and tests
 ```
 
 ---
