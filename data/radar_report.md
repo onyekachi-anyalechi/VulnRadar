@@ -1,6 +1,6 @@
 # VulnRadar Report
 
-Generated: `2026-02-26T17:15:30+00:00`
+Generated: `2026-02-26T19:07:23+00:00`
 
 ## Executive Summary
 
@@ -24,6 +24,7 @@ Top critical items:
 | [CVE-2022-20701](https://www.cve.org/CVERecord?id=CVE-2022-20701) | 0.061 | 10.0 | 2022-03-17 | Multiple vulnerabilities in Cisco Small Business RV160, RV260, RV340, and RV345 Series Routers could allow an attacker … |
 | [CVE-2024-20353](https://www.cve.org/CVERecord?id=CVE-2024-20353) | 0.195 | 8.6 | 2024-05-01 | A vulnerability in the management and VPN web servers for Cisco Adaptive Security Appliance (ASA) Software and Cisco Fi… |
 | [CVE-2025-20393](https://www.cve.org/CVERecord?id=CVE-2025-20393) | 0.050 | 10.0 | 2025-12-24 | A vulnerability in the Spam Quarantine feature of Cisco AsyncOS Software for Cisco Secure Email Gateway and Cisco Secur… |
+| [CVE-2026-20127](https://www.cve.org/CVERecord?id=CVE-2026-20127) | 0.033 | 10.0 | 2026-02-27 | A vulnerability in the peering authentication in Cisco Catalyst SD-WAN Controller, formerly SD-WAN vSmart, and Cisco Ca… |
 | [CVE-2022-20703](https://www.cve.org/CVERecord?id=CVE-2022-20703) | 0.020 | 10.0 | 2022-03-17 | Multiple vulnerabilities in Cisco Small Business RV160, RV260, RV340, and RV345 Series Routers could allow an attacker … |
 | [CVE-2025-20337](https://www.cve.org/CVERecord?id=CVE-2025-20337) | 0.006 | 10.0 | 2025-08-18 | A vulnerability in a specific API of Cisco ISE and Cisco ISE-PIC could allow an unauthenticated, remote attacker to exe… |
 | [CVE-2022-20821](https://www.cve.org/CVERecord?id=CVE-2022-20821) | 0.191 | 6.5 | 2022-06-13 | A vulnerability in the health check RPM of Cisco IOS XR Software could allow an unauthenticated, remote attacker to acc… |
@@ -34,15 +35,14 @@ Top critical items:
 | [CVE-2023-20118](https://www.cve.org/CVERecord?id=CVE-2023-20118) | 0.034 | 6.5 | 2025-03-24 | A vulnerability in the web-based management interface of Cisco Small Business Routers RV016, RV042, RV042G, RV082, RV32… |
 | [CVE-2023-20109](https://www.cve.org/CVERecord?id=CVE-2023-20109) | 0.006 | 6.6 | 2023-10-31 | A vulnerability in the Cisco Group Encrypted Transport VPN (GET VPN) feature of Cisco IOS Software and Cisco IOS XE Sof… |
 | [CVE-2024-20399](https://www.cve.org/CVERecord?id=CVE-2024-20399) | 0.006 | 6.0 | 2024-07-23 | A vulnerability in the CLI of Cisco NX-OS Software could allow an authenticated user in possession of Administrator cre… |
-| [CVE-2024-20359](https://www.cve.org/CVERecord?id=CVE-2024-20359) | 0.002 | 6.0 | 2024-05-01 | A vulnerability in a legacy capability that allowed for the preloading of VPN clients and plug-ins and that has been av… |
 
 ## Summary
 
 - Total items: **2589**
 - Watchlist hits: **1985**
 - CISA KEVs: **631**
-- Exploit Intel (PoC): **647**
-- Exploit Intel + Watchlist (CRITICAL): **43**
+- Exploit Intel (PoC): **648**
+- Exploit Intel + Watchlist (CRITICAL): **44**
 
 ## Top Findings (max 200)
 
@@ -62,6 +62,7 @@ Top critical items:
 | [CVE-2022-20701](https://www.cve.org/CVERecord?id=CVE-2022-20701) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2022-03-17 | 0.061 | 10.0 | ✅ | Multiple vulnerabilities in Cisco Small Business RV160, RV260, RV340, and RV345 Series Routers could allow an attacker to do any of the following: Execute arbi… |
 | [CVE-2024-20353](https://www.cve.org/CVERecord?id=CVE-2024-20353) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2024-05-01 | 0.195 | 8.6 | ✅ | A vulnerability in the management and VPN web servers for Cisco Adaptive Security Appliance (ASA) Software and Cisco Firepower Threat Defense (FTD) Software co… |
 | [CVE-2025-20393](https://www.cve.org/CVERecord?id=CVE-2025-20393) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2025-12-24 | 0.050 | 10.0 | ✅ | A vulnerability in the Spam Quarantine feature of Cisco AsyncOS Software for Cisco Secure Email Gateway and Cisco Secure Email and Web Manager could allow an u… |
+| [CVE-2026-20127](https://www.cve.org/CVERecord?id=CVE-2026-20127) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2026-02-27 | 0.033 | 10.0 | ✅ | A vulnerability in the peering authentication in Cisco Catalyst SD-WAN Controller, formerly SD-WAN vSmart, and Cisco Catalyst SD-WAN Manager, formerly SD-WAN v… |
 | [CVE-2022-20703](https://www.cve.org/CVERecord?id=CVE-2022-20703) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2022-03-17 | 0.020 | 10.0 | ✅ | Multiple vulnerabilities in Cisco Small Business RV160, RV260, RV340, and RV345 Series Routers could allow an attacker to do any of the following: Execute arbi… |
 | [CVE-2025-20337](https://www.cve.org/CVERecord?id=CVE-2025-20337) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2025-08-18 | 0.006 | 10.0 | ✅ | A vulnerability in a specific API of Cisco ISE and Cisco ISE-PIC could allow an unauthenticated, remote attacker to execute arbitrary code on the underlying op… |
 | [CVE-2022-20821](https://www.cve.org/CVERecord?id=CVE-2022-20821) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2022-06-13 | 0.191 | 6.5 | ✅ | A vulnerability in the health check RPM of Cisco IOS XR Software could allow an unauthenticated, remote attacker to access the Redis instance that is running w… |
@@ -247,4 +248,3 @@ Top critical items:
 | [CVE-2023-26360](https://www.cve.org/CVERecord?id=CVE-2023-26360) |  | KEV | ✅ | ✅ | 2023-04-05 | 0.943 | 8.6 |  | Adobe ColdFusion versions 2018 Update 15 (and earlier) and 2021 Update 5 (and earlier) are affected by an Improper Access Control vulnerability that could resu… |
 | [CVE-2024-48248](https://www.cve.org/CVERecord?id=CVE-2024-48248) |  | KEV | ✅ | ✅ | 2025-04-09 | 0.940 | 8.6 |  | NAKIVO Backup & Replication before 11.0.0.88174 allows absolute path traversal for reading files via getImageByPath to /c/router (this may lead to remote code … |
 | [CVE-2022-26923](https://www.cve.org/CVERecord?id=CVE-2022-26923) |  | KEV | ✅ | ✅ | 2022-09-08 | 0.917 | 8.8 |  | Active Directory Domain Services Elevation of Privilege Vulnerability |
-| [CVE-2022-43939](https://www.cve.org/CVERecord?id=CVE-2022-43939) |  | KEV | ✅ | ✅ | 2025-03-24 | 0.934 | 8.6 |  | Hitachi Vantara Pentaho Business Analytics Server versions before 9.4.0.1 and 9.3.0.2, including 8.3.x contain security restrictions using non-canonical URLs w… |
