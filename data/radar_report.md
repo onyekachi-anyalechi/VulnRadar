@@ -1,6 +1,6 @@
 # VulnRadar Report
 
-Generated: `2026-02-25T23:40:50+00:00`
+Generated: `2026-02-26T02:52:05+00:00`
 
 ## Executive Summary
 
@@ -29,7 +29,7 @@ Top critical items:
 | [CVE-2022-20821](https://www.cve.org/CVERecord?id=CVE-2022-20821) | 0.191 | 6.5 | 2022-06-13 | A vulnerability in the health check RPM of Cisco IOS XR Software could allow an unauthenticated, remote attacker to acc… |
 | [CVE-2026-20045](https://www.cve.org/CVERecord?id=CVE-2026-20045) | 0.010 | 8.2 | 2026-02-11 | A vulnerability in Cisco Unified Communications Manager (Unified CM), Cisco Unified Communications Manager Session Mana… |
 | [CVE-2025-20352](https://www.cve.org/CVERecord?id=CVE-2025-20352) | 0.019 | 7.7 | 2025-10-20 | A vulnerability in the Simple Network Management Protocol (SNMP) subsystem of Cisco IOS Software and Cisco IOS XE Softw… |
-| [CVE-2022-20775](https://www.cve.org/CVERecord?id=CVE-2022-20775) | 0.002 | 7.8 | 2026-02-27 | Multiple vulnerabilities in the CLI of Cisco SD-WAN Software could allow an authenticated, local attacker to gain eleva… |
+| [CVE-2022-20775](https://www.cve.org/CVERecord?id=CVE-2022-20775) | 0.002 | 7.8 | 2026-02-27 | A vulnerability in the CLI of Cisco SD-WAN Software could allow an authenticated, local attacker to gain elevated privi… |
 | [CVE-2024-20481](https://www.cve.org/CVERecord?id=CVE-2024-20481) | 0.111 | 5.8 | 2024-11-14 | A vulnerability in the Remote Access VPN (RAVPN) service of Cisco Adaptive Security Appliance (ASA) Software and Cisco … |
 | [CVE-2023-20118](https://www.cve.org/CVERecord?id=CVE-2023-20118) | 0.034 | 6.5 | 2025-03-24 | A vulnerability in the web-based management interface of Cisco Small Business Routers RV016, RV042, RV042G, RV082, RV32… |
 | [CVE-2023-20109](https://www.cve.org/CVERecord?id=CVE-2023-20109) | 0.006 | 6.6 | 2023-10-31 | A vulnerability in the Cisco Group Encrypted Transport VPN (GET VPN) feature of Cisco IOS Software and Cisco IOS XE Sof… |
@@ -38,9 +38,9 @@ Top critical items:
 
 ## Summary
 
-- Total items: **2574**
-- Watchlist hits: **1970**
-- CISA KEVs: **630**
+- Total items: **2589**
+- Watchlist hits: **1985**
+- CISA KEVs: **631**
 - Exploit Intel (PoC): **647**
 - Exploit Intel + Watchlist (CRITICAL): **43**
 
@@ -67,7 +67,7 @@ Top critical items:
 | [CVE-2022-20821](https://www.cve.org/CVERecord?id=CVE-2022-20821) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2022-06-13 | 0.191 | 6.5 | ✅ | A vulnerability in the health check RPM of Cisco IOS XR Software could allow an unauthenticated, remote attacker to access the Redis instance that is running w… |
 | [CVE-2026-20045](https://www.cve.org/CVERecord?id=CVE-2026-20045) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2026-02-11 | 0.010 | 8.2 | ✅ | A vulnerability in Cisco Unified Communications Manager (Unified CM), Cisco Unified Communications Manager Session Management Edition (Unified CM SME), Cisco U… |
 | [CVE-2025-20352](https://www.cve.org/CVERecord?id=CVE-2025-20352) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2025-10-20 | 0.019 | 7.7 | ✅ | A vulnerability in the Simple Network Management Protocol (SNMP) subsystem of Cisco IOS Software and Cisco IOS XE Software could allow the following:   An a… |
-| [CVE-2022-20775](https://www.cve.org/CVERecord?id=CVE-2022-20775) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2026-02-27 | 0.002 | 7.8 | ✅ | Multiple vulnerabilities in the CLI of Cisco SD-WAN Software could allow an authenticated, local attacker to gain elevated privileges. These vulnerabilities ar… |
+| [CVE-2022-20775](https://www.cve.org/CVERecord?id=CVE-2022-20775) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2026-02-27 | 0.002 | 7.8 | ✅ | A vulnerability in the CLI of Cisco SD-WAN Software could allow an authenticated, local attacker to gain elevated privileges.  This vulnerability is due to i… |
 | [CVE-2024-20481](https://www.cve.org/CVERecord?id=CVE-2024-20481) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2024-11-14 | 0.111 | 5.8 | ✅ | A vulnerability in the Remote Access VPN (RAVPN) service of Cisco Adaptive Security Appliance (ASA) Software and Cisco Firepower Threat Defense (FTD) Software … |
 | [CVE-2023-20118](https://www.cve.org/CVERecord?id=CVE-2023-20118) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2025-03-24 | 0.034 | 6.5 | ✅ | A vulnerability in the web-based management interface of Cisco Small Business Routers RV016, RV042, RV042G, RV082, RV320, and RV325 Routers could allow an auth… |
 | [CVE-2023-20109](https://www.cve.org/CVERecord?id=CVE-2023-20109) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2023-10-31 | 0.006 | 6.6 | ✅ | A vulnerability in the Cisco Group Encrypted Transport VPN (GET VPN) feature of Cisco IOS Software and Cisco IOS XE Software could allow an authenticated, remo… |
@@ -105,7 +105,7 @@ Top critical items:
 | [CVE-2024-3400](https://www.cve.org/CVERecord?id=CVE-2024-3400) |  | KEV | ✅ | ✅ | 2024-04-19 | 0.943 | 10.0 |  | A command injection as a result of arbitrary file creation vulnerability in the GlobalProtect feature of Palo Alto Networks PAN-OS software for specific PAN-OS… |
 | [CVE-2024-1709](https://www.cve.org/CVERecord?id=CVE-2024-1709) |  | KEV | ✅ | ✅ | 2024-02-29 | 0.943 | 10.0 |  | ConnectWise ScreenConnect 23.9.7 and prior are affected by an Authentication Bypass Using an Alternate Path or Channel   vulnerability, which may allow an atta… |
 | [CVE-2024-51567](https://www.cve.org/CVERecord?id=CVE-2024-51567) |  | KEV | ✅ | ✅ | 2024-11-28 | 0.943 | 10.0 |  | upgrademysqlstatus in databases/views.py in CyberPanel (aka Cyber Panel) before 5b08cd6 allows remote attackers to bypass authentication and execute arbitrary … |
-| [CVE-2024-1212](https://www.cve.org/CVERecord?id=CVE-2024-1212) |  | KEV | ✅ | ✅ | 2024-12-09 | 0.943 | 10.0 |  | Unauthenticated remote attackers can access the system through the LoadMaster management interface, enabling arbitrary system command execution.    |
+| [CVE-2024-1212](https://www.cve.org/CVERecord?id=CVE-2024-1212) |  | KEV | ✅ | ✅ | 2024-12-09 | 0.943 | 10.0 |  | Unauthenticated remote attackers can access the system through the LoadMaster management interface, enabling arbitrary system command execution. |
 | [CVE-2024-45519](https://www.cve.org/CVERecord?id=CVE-2024-45519) |  | KEV | ✅ | ✅ | 2024-10-24 | 0.941 | 10.0 |  | The postjournal service in Zimbra Collaboration (ZCS) before 8.8.15 Patch 46, 9 before 9.0.0 Patch 41, 10 before 10.0.9, and 10.1 before 10.1.1 sometimes allow… |
 | [CVE-2022-24816](https://www.cve.org/CVERecord?id=CVE-2022-24816) |  | KEV | ✅ | ✅ | 2024-07-17 | 0.940 | 10.0 |  | JAI-EXT is an open-source project which aims to extend the Java Advanced Imaging (JAI) API. Programs allowing Jiffle script to be provided via network request … |
 | [CVE-2024-51378](https://www.cve.org/CVERecord?id=CVE-2024-51378) |  | KEV | ✅ | ✅ | 2024-12-25 | 0.939 | 10.0 |  | getresetstatus in dns/views.py and ftp/views.py in CyberPanel (aka Cyber Panel) before 1c0c6cb allows remote attackers to bypass authentication and execute arb… |
@@ -140,7 +140,7 @@ Top critical items:
 | [CVE-2022-35914](https://www.cve.org/CVERecord?id=CVE-2022-35914) |  | KEV | ✅ | ✅ | 2023-03-28 | 0.944 | 9.8 |  | /vendor/htmlawed/htmlawed/htmLawedTest.php in the htmlawed module for GLPI through 10.0.2 allows PHP code injection. |
 | [CVE-2023-20887](https://www.cve.org/CVERecord?id=CVE-2023-20887) |  | KEV | ✅ | ✅ | 2023-07-13 | 0.944 | 9.8 |  | Aria Operations for Networks contains a command injection vulnerability. A malicious actor with network access to VMware Aria Operations for Networks may be ab… |
 | [CVE-2022-24706](https://www.cve.org/CVERecord?id=CVE-2022-24706) |  | KEV | ✅ | ✅ | 2022-09-15 | 0.944 | 9.8 |  | In Apache CouchDB prior to 3.2.2, an attacker can access an improperly secured default installation without authenticating and gain admin privileges. The Couch… |
-| [CVE-2023-24489](https://www.cve.org/CVERecord?id=CVE-2023-24489) |  | KEV | ✅ | ✅ | 2023-09-06 | 0.944 | 9.8 |  |  A vulnerability has been discovered in the customer-managed ShareFile storage zones controller which, if exploited, could allow an unauthenticated attacker to… |
+| [CVE-2023-24489](https://www.cve.org/CVERecord?id=CVE-2023-24489) |  | KEV | ✅ | ✅ | 2023-09-06 | 0.944 | 9.8 |  | A vulnerability has been discovered in the customer-managed ShareFile storage zones controller which, if exploited, could allow an unauthenticated attacker to … |
 | [CVE-2023-33246](https://www.cve.org/CVERecord?id=CVE-2023-33246) |  | KEV | ✅ | ✅ | 2023-09-27 | 0.944 | 9.8 |  | For RocketMQ versions 5.1.0 and below, under certain conditions, there is a risk of remote command execution.   Several components of RocketMQ, including NameS… |
 | [CVE-2022-47966](https://www.cve.org/CVERecord?id=CVE-2022-47966) |  | KEV | ✅ | ✅ | 2023-02-13 | 0.944 | 9.8 |  | Multiple Zoho ManageEngine on-premise products, such as ServiceDesk Plus through 14003, allow remote code execution due to use of Apache Santuario xmlsec (aka … |
 | [CVE-2024-38856](https://www.cve.org/CVERecord?id=CVE-2024-38856) |  | KEV | ✅ | ✅ | 2024-09-17 | 0.944 | 9.8 |  | Incorrect Authorization vulnerability in Apache OFBiz.  This issue affects Apache OFBiz: through 18.12.14.  Users are recommended to upgrade to version 18.12.1… |
@@ -242,7 +242,7 @@ Top critical items:
 | [CVE-2024-37079](https://www.cve.org/CVERecord?id=CVE-2024-37079) |  | KEV | ✅ | ✅ | 2026-02-13 | 0.830 | 9.8 |  | vCenter Server contains a heap-overflow vulnerability in the implementation of the DCERPC protocol. A malicious actor with network access to vCenter Server may… |
 | [CVE-2025-61757](https://www.cve.org/CVERecord?id=CVE-2025-61757) |  | KEV | ✅ | ✅ | 2025-12-12 | 0.828 | 9.8 |  | Vulnerability in the Identity Manager product of Oracle Fusion Middleware (component: REST WebServices).  Supported versions that are affected are 12.2.1.4.0 a… |
 | [CVE-2023-32315](https://www.cve.org/CVERecord?id=CVE-2023-32315) |  | KEV | ✅ | ✅ | 2023-09-14 | 0.944 | 8.6 |  | Openfire is an XMPP server licensed under the Open Source Apache License. Openfire's administrative console, a web-based application, was found to be vulnerabl… |
-| [CVE-2024-28995](https://www.cve.org/CVERecord?id=CVE-2024-28995) |  | KEV | ✅ | ✅ | 2024-08-07 | 0.944 | 8.6 |  |             SolarWinds Serv-U was susceptible to a directory transversal vulnerability that would allow access to read sensitive files on the host machine.    … |
+| [CVE-2024-28995](https://www.cve.org/CVERecord?id=CVE-2024-28995) |  | KEV | ✅ | ✅ | 2024-08-07 | 0.944 | 8.6 |  | SolarWinds Serv-U was susceptible to a directory transversal vulnerability that would allow access to read sensitive files on the host machine. |
 | [CVE-2024-24919](https://www.cve.org/CVERecord?id=CVE-2024-24919) |  | KEV | ✅ | ✅ | 2024-06-20 | 0.943 | 8.6 |  | Potentially allowing an attacker to read certain information on Check Point Security Gateways once connected to the internet and enabled with remote Access VPN… |
 | [CVE-2023-26360](https://www.cve.org/CVERecord?id=CVE-2023-26360) |  | KEV | ✅ | ✅ | 2023-04-05 | 0.943 | 8.6 |  | Adobe ColdFusion versions 2018 Update 15 (and earlier) and 2021 Update 5 (and earlier) are affected by an Improper Access Control vulnerability that could resu… |
 | [CVE-2024-48248](https://www.cve.org/CVERecord?id=CVE-2024-48248) |  | KEV | ✅ | ✅ | 2025-04-09 | 0.940 | 8.6 |  | NAKIVO Backup & Replication before 11.0.0.88174 allows absolute path traversal for reading files via getImageByPath to /c/router (this may lead to remote code … |
