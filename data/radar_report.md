@@ -1,6 +1,6 @@
 # VulnRadar Report
 
-Generated: `2026-03-19T17:14:02+00:00`
+Generated: `2026-03-19T19:13:29+00:00`
 
 ## Executive Summary
 
@@ -27,6 +27,7 @@ Top critical items:
 | [CVE-2022-20703](https://www.cve.org/CVERecord?id=CVE-2022-20703) | 0.020 | 10.0 | 2022-03-17 | Multiple vulnerabilities in Cisco Small Business RV160, RV260, RV340, and RV345 Series Routers could allow an attacker … |
 | [CVE-2025-11953](https://www.cve.org/CVERecord?id=CVE-2025-11953) | 0.034 | 9.8 | 2026-02-26 | The Metro Development Server, which is opened by the React Native Community CLI, binds to external interfaces by defaul… |
 | [CVE-2025-20337](https://www.cve.org/CVERecord?id=CVE-2025-20337) | 0.007 | 10.0 | 2025-08-18 | A vulnerability in a specific API of Cisco ISE and Cisco ISE-PIC could allow an unauthenticated, remote attacker to exe… |
+| [CVE-2026-20131](https://www.cve.org/CVERecord?id=CVE-2026-20131) | 0.006 | 10.0 | 2026-03-22 | A vulnerability in the web-based management interface of Cisco Secure Firewall Management Center (FMC) Software could a… |
 | [CVE-2022-20821](https://www.cve.org/CVERecord?id=CVE-2022-20821) | 0.204 | 6.5 | 2022-06-13 | A vulnerability in the health check RPM of Cisco IOS XR Software could allow an unauthenticated, remote attacker to acc… |
 | [CVE-2026-20045](https://www.cve.org/CVERecord?id=CVE-2026-20045) | 0.010 | 8.2 | 2026-02-11 | A vulnerability in Cisco Unified Communications Manager (Unified CM), Cisco Unified Communications Manager Session Mana… |
 | [CVE-2025-20352](https://www.cve.org/CVERecord?id=CVE-2025-20352) | 0.020 | 7.7 | 2025-10-20 | A vulnerability in the Simple Network Management Protocol (SNMP) subsystem of Cisco IOS Software and Cisco IOS XE Softw… |
@@ -34,15 +35,14 @@ Top critical items:
 | [CVE-2024-20481](https://www.cve.org/CVERecord?id=CVE-2024-20481) | 0.111 | 5.8 | 2024-11-14 | A vulnerability in the Remote Access VPN (RAVPN) service of Cisco Adaptive Security Appliance (ASA) Software and Cisco … |
 | [CVE-2023-20118](https://www.cve.org/CVERecord?id=CVE-2023-20118) | 0.039 | 6.5 | 2025-03-24 | A vulnerability in the web-based management interface of Cisco Small Business Routers RV016, RV042, RV042G, RV082, RV32… |
 | [CVE-2023-20109](https://www.cve.org/CVERecord?id=CVE-2023-20109) | 0.006 | 6.6 | 2023-10-31 | A vulnerability in the Cisco Group Encrypted Transport VPN (GET VPN) feature of Cisco IOS Software and Cisco IOS XE Sof… |
-| [CVE-2024-20399](https://www.cve.org/CVERecord?id=CVE-2024-20399) | 0.008 | 6.0 | 2024-07-23 | A vulnerability in the CLI of Cisco NX-OS Software could allow an authenticated user in possession of Administrator cre… |
 
 ## Summary
 
 - Total items: **2660**
 - Watchlist hits: **2044**
 - CISA KEVs: **644**
-- Exploit Intel (PoC): **660**
-- Exploit Intel + Watchlist (CRITICAL): **44**
+- Exploit Intel (PoC): **661**
+- Exploit Intel + Watchlist (CRITICAL): **45**
 
 ## Top Findings (max 200)
 
@@ -65,6 +65,7 @@ Top critical items:
 | [CVE-2022-20703](https://www.cve.org/CVERecord?id=CVE-2022-20703) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2022-03-17 | 0.020 | 10.0 | ✅ | Multiple vulnerabilities in Cisco Small Business RV160, RV260, RV340, and RV345 Series Routers could allow an attacker to do any of the following: Execute arbi… |
 | [CVE-2025-11953](https://www.cve.org/CVERecord?id=CVE-2025-11953) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2026-02-26 | 0.034 | 9.8 | ✅ | The Metro Development Server, which is opened by the React Native Community CLI, binds to external interfaces by default. The server exposes an endpoint that i… |
 | [CVE-2025-20337](https://www.cve.org/CVERecord?id=CVE-2025-20337) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2025-08-18 | 0.007 | 10.0 | ✅ | A vulnerability in a specific API of Cisco ISE and Cisco ISE-PIC could allow an unauthenticated, remote attacker to execute arbitrary code on the underlying op… |
+| [CVE-2026-20131](https://www.cve.org/CVERecord?id=CVE-2026-20131) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2026-03-22 | 0.006 | 10.0 | ✅ | A vulnerability in the web-based management interface of Cisco Secure Firewall Management Center (FMC) Software could allow an unauthenticated, remote attacker… |
 | [CVE-2022-20821](https://www.cve.org/CVERecord?id=CVE-2022-20821) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2022-06-13 | 0.204 | 6.5 | ✅ | A vulnerability in the health check RPM of Cisco IOS XR Software could allow an unauthenticated, remote attacker to access the Redis instance that is running w… |
 | [CVE-2026-20045](https://www.cve.org/CVERecord?id=CVE-2026-20045) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2026-02-11 | 0.010 | 8.2 | ✅ | A vulnerability in Cisco Unified Communications Manager (Unified CM), Cisco Unified Communications Manager Session Management Edition (Unified CM SME), Cisco U… |
 | [CVE-2025-20352](https://www.cve.org/CVERecord?id=CVE-2025-20352) | CRITICAL (Active Exploit in Stack) | CRITICAL | ✅ | ✅ | 2025-10-20 | 0.020 | 7.7 | ✅ | A vulnerability in the Simple Network Management Protocol (SNMP) subsystem of Cisco IOS Software and Cisco IOS XE Software could allow the following:   An a… |
@@ -247,4 +248,3 @@ Top critical items:
 | [CVE-2024-37079](https://www.cve.org/CVERecord?id=CVE-2024-37079) |  | KEV | ✅ | ✅ | 2026-02-13 | 0.822 | 9.8 |  | vCenter Server contains a heap-overflow vulnerability in the implementation of the DCERPC protocol. A malicious actor with network access to vCenter Server may… |
 | [CVE-2025-64446](https://www.cve.org/CVERecord?id=CVE-2025-64446) |  | KEV | ✅ | ✅ | 2025-11-21 | 0.861 | 9.4 |  | A relative path traversal vulnerability in Fortinet FortiWeb 8.0.0 through 8.0.1, FortiWeb 7.6.0 through 7.6.4, FortiWeb 7.4.0 through 7.4.9, FortiWeb 7.2.0 th… |
 | [CVE-2024-48248](https://www.cve.org/CVERecord?id=CVE-2024-48248) |  | KEV | ✅ | ✅ | 2025-04-09 | 0.940 | 8.6 |  | NAKIVO Backup & Replication before 11.0.0.88174 allows absolute path traversal for reading files via getImageByPath to /c/router (this may lead to remote code … |
-| [CVE-2025-52691](https://www.cve.org/CVERecord?id=CVE-2025-52691) |  | KEV | ✅ | ✅ | 2026-02-16 | 0.799 | 10.0 |  | Successful exploitation of the vulnerability could allow an unauthenticated attacker to upload arbitrary files to any location on the mail server, potentially … |
